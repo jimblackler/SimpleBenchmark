@@ -2,31 +2,39 @@ package net.jimblackler.simplebenchmark;
 
 import static java.lang.System.currentTimeMillis;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Choreographer;
+import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
-import java.util.LinkedList;
+import java.util.concurrent.atomic.AtomicLong;
 import net.jimblackler.simplebenchmark.databinding.ActivityMainBinding;
 
 public class MainActivity extends Activity {
-  private static final long MILLISECONDS_PER_SECOND = 1000;
+  private static final int NUMBER_ITERATIONS = 10000000;
 
+  @RequiresApi(api = Build.VERSION_CODES.N)
+  @SuppressLint("SetTextI18n")
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    LinkedList<Long> times = new LinkedList<>();
+    AtomicLong delta = new AtomicLong();
 
     super.onCreate(savedInstanceState);
     ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
     new Thread(() -> {
+      int ptr = 0;
+      long[] times = new long[NUMBER_ITERATIONS];
       while (true) {
         long time = currentTimeMillis();
-
-        while (!times.isEmpty() && times.getFirst() < time - MILLISECONDS_PER_SECOND) {
-          times.removeFirst();
+        long previous = times[ptr];
+        if (previous != 0) {
+          delta.set(time - previous);
         }
-        times.add(time);
+        times[ptr] = time;
+        ptr = ptr + 1 == NUMBER_ITERATIONS ? 0 : ptr + 1;
       }
     }).start();
 
@@ -34,7 +42,7 @@ public class MainActivity extends Activity {
     Choreographer.FrameCallback callback = new Choreographer.FrameCallback() {
       @Override
       public void doFrame(long frameTimeNanos) {
-        binding.progress.setText("Iterations: " + times.size());
+        binding.progress.setText("Difference: " + delta.get());
         instance.postFrameCallback(this);
       }
     };
