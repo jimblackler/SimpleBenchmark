@@ -1,6 +1,6 @@
 package net.jimblackler.simplebenchmark;
 
-import static java.lang.System.currentTimeMillis;
+import static java.lang.System.nanoTime;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -28,7 +28,7 @@ public class MainActivity extends Activity {
       int ptr = 0;
       long[] times = new long[NUMBER_ITERATIONS];
       while (true) {
-        long time = currentTimeMillis();
+        long time = nanoTime();
         long previous = times[ptr];
         if (previous != 0) {
           delta.set(time - previous);
