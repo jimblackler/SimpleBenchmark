@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
     Choreographer.FrameCallback callback = new Choreographer.FrameCallback() {
       @Override
       public void doFrame(long frameTimeNanos) {
-        binding.progress.setText("Iterations per second: " + times.size());
+        binding.progress.setText("Iterations: " + times.size());
         instance.postFrameCallback(this);
       }
     };
