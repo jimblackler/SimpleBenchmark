@@ -1,6 +1,6 @@
 package net.jimblackler.simplebenchmark;
 
-import static java.lang.System.currentTimeMillis;
+import static java.lang.System.nanoTime;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -13,7 +13,8 @@ import java.util.concurrent.atomic.AtomicLong;
 import net.jimblackler.simplebenchmark.databinding.ActivityMainBinding;
 
 public class MainActivity extends Activity {
-  private static final int NUMBER_ITERATIONS = 10000000;
+  private static final int NUMBER_ITERATIONS = 100000;
+  private static final int NANOSECONDS_PER_MICROSECOND = 1000;
 
   @RequiresApi(api = Build.VERSION_CODES.N)
   @SuppressLint("SetTextI18n")
@@ -28,7 +29,7 @@ public class MainActivity extends Activity {
       int ptr = 0;
       long[] times = new long[NUMBER_ITERATIONS];
       while (true) {
-        long time = currentTimeMillis();
+        long time = nanoTime();
         long previous = times[ptr];
         if (previous != 0) {
           delta.set(time - previous);
@@ -42,7 +43,7 @@ public class MainActivity extends Activity {
     Choreographer.FrameCallback callback = new Choreographer.FrameCallback() {
       @Override
       public void doFrame(long frameTimeNanos) {
-        binding.progress.setText("Duration: " + delta.get());
+        binding.progress.setText("Microseconds: " + delta.get() / NANOSECONDS_PER_MICROSECOND);
         instance.postFrameCallback(this);
       }
     };
