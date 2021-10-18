@@ -1,6 +1,6 @@
 package net.jimblackler.simplebenchmark;
 
-import static java.lang.System.nanoTime;
+import static java.lang.System.currentTimeMillis;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -28,7 +28,7 @@ public class MainActivity extends Activity {
       int ptr = 0;
       long[] times = new long[NUMBER_ITERATIONS];
       while (true) {
-        long time = nanoTime();
+        long time = currentTimeMillis();
         long previous = times[ptr];
         if (previous != 0) {
           delta.set(time - previous);
@@ -42,7 +42,7 @@ public class MainActivity extends Activity {
     Choreographer.FrameCallback callback = new Choreographer.FrameCallback() {
       @Override
       public void doFrame(long frameTimeNanos) {
-        binding.progress.setText("Difference: " + delta.get());
+        binding.progress.setText("Duration: " + delta.get());
         instance.postFrameCallback(this);
       }
     };
