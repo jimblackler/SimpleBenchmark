@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Process;
 import android.view.Choreographer;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
@@ -48,5 +49,6 @@ public class MainActivity extends Activity {
       }
     };
     instance.postFrameCallback(callback);
+    binding.processPid.setText("Process pid: " + Process.myPid());
   }
 }
