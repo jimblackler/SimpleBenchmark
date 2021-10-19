@@ -16,5 +16,10 @@
             android:layout_height="wrap_content"
             android:text="Example"
             android:textSize="34sp" />
+        <Button
+            android:id="@+id/boost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Boost" />
     </LinearLayout>
 </layout>
