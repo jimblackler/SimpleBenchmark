@@ -62,7 +62,7 @@ public class MainActivity extends Activity {
 
     binding.performanceHintManagerBoost.setOnClickListener(v -> {
       if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.S) {
-        makeText(this, "Not supported on this device", Toast.LENGTH_LONG).show();
+        makeText(this, "Not supported on this device", Toast.LENGTH_SHORT).show();
         return;
       }
       @SuppressLint("WrongConstant")
@@ -72,9 +72,9 @@ public class MainActivity extends Activity {
       PerformanceHintManager.Session hintSession =
           manager.createHintSession(tids, 5 * NANOSECONDS_PER_SECOND);
       if (hintSession == null) {
-        makeText(this, "createHintSession failed", Toast.LENGTH_LONG).show();
+        makeText(this, "createHintSession failed", Toast.LENGTH_SHORT).show();
       } else {
-        makeText(this, "createHintSession succeeded", Toast.LENGTH_LONG).show();
+        makeText(this, "createHintSession succeeded", Toast.LENGTH_SHORT).show();
       }
     });
 
@@ -83,7 +83,7 @@ public class MainActivity extends Activity {
       boolean newMode = !oldMode;
       sustainedMode.set(newMode);
       getWindow().setSustainedPerformanceMode(newMode);
-      makeText(this, "setSustainedPerformanceMode " + (newMode ? "on" : "off"), Toast.LENGTH_LONG)
+      makeText(this, "setSustainedPerformanceMode " + (newMode ? "on" : "off"), Toast.LENGTH_SHORT)
           .show();
     });
   }
