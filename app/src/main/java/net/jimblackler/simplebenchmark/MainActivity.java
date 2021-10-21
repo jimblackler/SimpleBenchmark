@@ -73,5 +73,8 @@ public class MainActivity extends Activity {
         makeText(this, "createHintSession succeeded", Toast.LENGTH_LONG).show();
       }
     });
+
+    binding.setSustainedPerformanceMode.setOnClickListener(
+        v -> getWindow().setSustainedPerformanceMode(true));
   }
 }
