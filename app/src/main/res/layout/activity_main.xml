@@ -17,9 +17,9 @@
             android:text="Example"
             android:textSize="34sp" />
         <Button
-            android:id="@+id/boost"
+            android:id="@+id/performanceHintManagerBoost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Boost" />
+            android:text="PerformanceHintManager" />
     </LinearLayout>
 </layout>

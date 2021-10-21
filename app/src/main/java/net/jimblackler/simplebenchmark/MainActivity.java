@@ -1,5 +1,6 @@
 package net.jimblackler.simplebenchmark;
 
+import static android.widget.Toast.makeText;
 import static java.lang.System.nanoTime;
 
 import android.annotation.SuppressLint;
@@ -9,8 +10,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PerformanceHintManager;
 import android.os.Process;
-import android.util.Log;
 import android.view.Choreographer;
+import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import java.util.concurrent.atomic.AtomicLong;
@@ -59,14 +60,18 @@ public class MainActivity extends Activity {
     instance.postFrameCallback(callback);
     binding.processPid.setText("Process pid: " + Process.myPid());
 
-    binding.boost.setOnClickListener(v -> {
+    binding.performanceHintManagerBoost.setOnClickListener(v -> {
       @SuppressLint("WrongConstant")
       PerformanceHintManager manager =
           (PerformanceHintManager) getSystemService(Context.PERFORMANCE_HINT_SERVICE);
       int[] tids = {Process.myPid()};
       PerformanceHintManager.Session hintSession =
           manager.createHintSession(tids, 5 * NANOSECONDS_PER_SECOND);
-      Log.i(TAG, hintSession == null ? "no" : "yes");
+      if (hintSession == null) {
+        makeText(this, "createHintSession failed", Toast.LENGTH_LONG).show();
+      } else {
+        makeText(this, "createHintSession succeeded", Toast.LENGTH_LONG).show();
+      }
     });
   }
 }
