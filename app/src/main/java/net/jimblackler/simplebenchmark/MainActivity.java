@@ -27,7 +27,6 @@ public class MainActivity extends Activity {
   private static final long NANOSECONDS_PER_SECOND =
       MICROSECONDS_PER_SECOND * NANOSECONDS_PER_MICROSECOND;
 
-  @RequiresApi(api = Build.VERSION_CODES.S)
   @SuppressLint("SetTextI18n")
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +61,10 @@ public class MainActivity extends Activity {
     binding.processPid.setText("Process pid: " + Process.myPid());
 
     binding.performanceHintManagerBoost.setOnClickListener(v -> {
+      if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.S) {
+        makeText(this, "Not supported on this device", Toast.LENGTH_LONG).show();
+        return;
+      }
       @SuppressLint("WrongConstant")
       PerformanceHintManager manager =
           (PerformanceHintManager) getSystemService(Context.PERFORMANCE_HINT_SERVICE);
