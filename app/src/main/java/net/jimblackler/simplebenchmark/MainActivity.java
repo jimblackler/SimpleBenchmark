@@ -19,8 +19,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import net.jimblackler.simplebenchmark.databinding.ActivityMainBinding;
 
 public class MainActivity extends Activity {
-  private static final String TAG = MainActivity.class.getSimpleName();
-
   private final AtomicBoolean sustainedMode = new AtomicBoolean();
 
   private static final int NUMBER_ITERATIONS = 100000;
