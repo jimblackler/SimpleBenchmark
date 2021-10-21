@@ -14,11 +14,14 @@ import android.view.Choreographer;
 import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import net.jimblackler.simplebenchmark.databinding.ActivityMainBinding;
 
 public class MainActivity extends Activity {
   private static final String TAG = MainActivity.class.getSimpleName();
+
+  private final AtomicBoolean sustainedMode = new AtomicBoolean();
 
   private static final int NUMBER_ITERATIONS = 100000;
   private static final int MICROSECONDS_PER_SECOND = 1000000;
@@ -74,7 +77,13 @@ public class MainActivity extends Activity {
       }
     });
 
-    binding.setSustainedPerformanceMode.setOnClickListener(
-        v -> getWindow().setSustainedPerformanceMode(true));
+    binding.setSustainedPerformanceMode.setOnClickListener(v -> {
+      boolean oldMode = sustainedMode.get();
+      boolean newMode = !oldMode;
+      sustainedMode.set(newMode);
+      getWindow().setSustainedPerformanceMode(newMode);
+      makeText(this, "setSustainedPerformanceMode " + (newMode ? "on" : "off"), Toast.LENGTH_LONG)
+          .show();
+    });
   }
 }
