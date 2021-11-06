@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.jimblackler.simplebenchmark" >
 
+    <uses-permission android:name="android.Manifest.permission.MANAGE_GAME_MODE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

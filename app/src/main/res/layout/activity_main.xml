@@ -26,5 +26,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="window.setSustainedPerformanceMode" />
+        <Button
+            android:id="@+id/gameDashboardTest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Game Dashboard test" />
     </LinearLayout>
 </layout>

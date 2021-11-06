@@ -5,6 +5,7 @@ import static java.lang.System.nanoTime;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.GameManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.PerformanceHintManager;
@@ -83,6 +84,11 @@ public class MainActivity extends Activity {
       getWindow().setSustainedPerformanceMode(newMode);
       makeText(this, "setSustainedPerformanceMode " + (newMode ? "on" : "off"), Toast.LENGTH_SHORT)
           .show();
+    });
+
+    binding.gameDashboardTest.setOnClickListener(v -> {
+      GameManager gameManager = getSystemService(GameManager.class);
+      makeText(this, "Game Mode " + gameManager.getGameMode(), Toast.LENGTH_SHORT).show();
     });
   }
 }
